@@ -1,0 +1,13 @@
+.idea
+*.iml
+*.ipr
+*.iws
+
+.classpath
+.factorypath
+.project
+.settings
+
+target
+
+src/main/resources/application-secrets.properties
