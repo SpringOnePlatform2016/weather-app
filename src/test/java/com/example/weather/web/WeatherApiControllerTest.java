@@ -2,53 +2,35 @@ package com.example.weather.web;
 
 import java.time.Instant;
 
-import com.example.weather.WeatherApp;
 import com.example.weather.integration.ows.Weather;
 import com.example.weather.integration.ows.WeatherEntry;
 import com.example.weather.integration.ows.WeatherForecast;
 import com.example.weather.integration.ows.WeatherService;
-import com.example.weather.web.WeatherApiControllerTest.TestConfig;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration({WeatherApp.class, TestConfig.class})
-@WebAppConfiguration
+@RunWith(SpringRunner.class)
+@WebMvcTest(WeatherApiController.class)
 public class WeatherApiControllerTest {
 
-	@Autowired
-	private WebApplicationContext context;
-
-	@Autowired
+	@MockBean
 	private WeatherService weatherService;
 
+	@Autowired
 	private MockMvc mvc;
-
-	@Before
-	public void setUp() {
-		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
-		reset(this.weatherService);
-	}
 
 	@Test
 	public void weather() throws Exception {
@@ -94,16 +76,6 @@ public class WeatherApiControllerTest {
 		entry.setWeatherId(id);
 		entry.setWeatherIcon(icon);
 		entry.setTimestamp(timestamp.getEpochSecond());
-	}
-
-	@Configuration
-	static class TestConfig {
-
-		@Bean
-		public WeatherService weatherService() {
-			return mock(WeatherService.class);
-		}
-
 	}
 
 }
