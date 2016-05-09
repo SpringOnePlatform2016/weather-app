@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -35,12 +36,14 @@ public class WeatherService {
 		this.apiKey = properties.getApi().getKey();
 	}
 
+	@Cacheable("weather")
 	public Weather getWeather(String country, String city) {
 		logger.info("Requesting current weather for {}/{}", country, city);
 		URI url = new UriTemplate(WEATHER_URL).expand(city, country, this.apiKey);
 		return invoke(url, Weather.class);
 	}
 
+	@Cacheable("forecast")
 	public WeatherForecast getWeatherForecast(String country, String city) {
 		logger.info("Requesting weather forecast for {}/{}", country, city);
 		URI url = new UriTemplate(FORECAST_URL).expand(city, country, this.apiKey);
