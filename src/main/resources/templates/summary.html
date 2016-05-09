@@ -7,7 +7,7 @@
 <title>Weather Summary</title>
 </head>
 <body>
-    <div id="twitter"><a href="/twitter">@spring1platform</a></div>
+    <div id="twitter"><a href="https://twitter.com/spring1platform">@spring1platform</a></div>
 	<h1>Weather Summary</h1>
 	<ul>
 		{{#summary}}
@@ -15,7 +15,7 @@
 			<h2>{{city}}, {{country}}</h2>
 			<div>
 				<i class="owf owf-{{code}} owf-4x" style="opacity: 0.4" ></i>
-				<div class="temp">{{fahrenheitTemperature}}<sup>°F</sup></div>
+				<div class="temp">{{fahrenheitTemperature}}<sup>°F</sup> / {{celsiusTemperature}}<sup>°C</sup></div>
 			</div>
 			<div style="clear: both;"></div>
 		</li>

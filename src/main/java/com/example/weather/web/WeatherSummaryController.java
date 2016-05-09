@@ -1,7 +1,6 @@
 package com.example.weather.web;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.weather.WeatherAppProperties;
 import com.example.weather.integration.ows.Weather;
 import com.example.weather.integration.ows.WeatherService;
 
@@ -19,14 +19,14 @@ import com.example.weather.integration.ows.WeatherService;
 @RequestMapping("/")
 public class WeatherSummaryController {
 
-	private static final List<String> LOCATIONS =
-			Arrays.asList("UK/London", "Russia/Moscow");
-
 	private final WeatherService weatherService;
 
+	private final WeatherAppProperties properties;
+
 	@Autowired
-	public WeatherSummaryController(WeatherService weatherService) {
+	public WeatherSummaryController(WeatherService weatherService, WeatherAppProperties properties) {
 		this.weatherService = weatherService;
+		this.properties = properties;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -38,7 +38,7 @@ public class WeatherSummaryController {
 
 	private Object getSummary() {
 		List<WeatherSummary> summary = new ArrayList<>();
-		for (String location : LOCATIONS) {
+		for (String location : this.properties.getLocations()) {
 			String country = location.split("/")[0];
 			String city = location.split("/")[1];
 			Weather weather = this.weatherService.getWeather(country, city);

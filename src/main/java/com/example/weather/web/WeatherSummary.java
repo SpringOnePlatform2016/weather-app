@@ -43,4 +43,9 @@ class WeatherSummary {
 		return String.format("%4.2f", fahrenheitTemp);
 	}
 
+	public String getCelsiusTemperature() {
+		double celsiusTemp = this.temperature - 273.15;
+		return String.format("%4.2f", celsiusTemp);
+	}
+
 }
