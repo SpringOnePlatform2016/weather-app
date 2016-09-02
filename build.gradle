@@ -65,22 +65,23 @@ repositories {
 }
 
 configurations {
-    compile.exclude module: "spring-boot-starter-tomcat"
+//    compile.exclude module: "spring-boot-starter-tomcat"
 }
 
 dependencies {
     compile("org.springframework.boot.experimental:spring-boot-starter-web-reactive")
     compile("org.freemarker:freemarker:${freeMarkerVersion}")
-    compile("io.projectreactor.ipc:reactor-netty:${reactorNettyVersion}")
+//    compile("io.projectreactor.ipc:reactor-netty:${reactorNettyVersion}")
     compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("org.springframework.boot:spring-boot-starter-mustache")
     compile("org.springframework.boot:spring-boot-starter-cache")
     compile("org.springframework.boot:spring-boot-devtools")
     compile("org.springframework.boot:spring-boot-configuration-processor")
     compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     compile("com.github.ben-manes.caffeine:caffeine")
+    compile("org.hibernate:hibernate-validator")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("org.springframework.restdocs:spring-restdocs-mockmvc")
 }
 
 dependencyManagement {
