@@ -1,0 +1,78 @@
+buildscript {
+    ext {
+        springBootVersion = '1.4.1.BUILD-SNAPSHOT'
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+ext {
+    reactiveWebVersion = '0.1.0.BUILD-SNAPSHOT'
+    reactorNettyVersion = '0.6.0.BUILD-SNAPSHOT'
+    freeMarkerVersion = '2.3.25-incubating'
+    springVersion = '5.0.0.BUILD-SNAPSHOT'
+
+    javadocLinks = [
+            "http://docs.oracle.com/javase/8/docs/api/",
+            "http://projectreactor.io/core/docs/api/",
+            "http://docs.spring.io/spring/docs/${springVersion}/javadoc-api/",
+            "http://www.reactive-streams.org/reactive-streams-1.0.0-javadoc/"
+    ] as String[]
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
+
+jar {
+    baseName = 'reactive-weather-app'
+    version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/release" }
+    maven { url "https://repo.spring.io/milestone" }
+}
+
+configurations {
+    compile.exclude module: "spring-boot-starter-tomcat"
+}
+
+dependencies {
+    compile("org.springframework.boot.experimental:spring-boot-starter-web-reactive")
+    compile("org.freemarker:freemarker:${freeMarkerVersion}")
+    compile("io.projectreactor.ipc:reactor-netty:${reactorNettyVersion}")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-mustache")
+    compile("org.springframework.boot:spring-boot-starter-cache")
+    compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.springframework.boot:spring-boot-configuration-processor")
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+    compile("com.github.ben-manes.caffeine:caffeine")
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot.experimental:spring-boot-dependencies-web-reactive:${reactiveWebVersion}"
+    }
+}
+
+
+eclipse {
+    classpath {
+        containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+        containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+    }
+}

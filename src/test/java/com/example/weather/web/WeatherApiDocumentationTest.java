@@ -52,8 +52,8 @@ public class WeatherApiDocumentationTest {
 		Weather weather = this.objectMapper.readValue(
 				new ClassPathResource("/com/example/weather/integration/ows/weather-barcelona.json").getURL(),
 				Weather.class);
-		given(this.weatherService.getWeather("spring", "barcelona")).willReturn(weather);
-		given(this.weatherService.getWeather("spain", "barcelona")).willReturn(weather);
+		given(this.weatherService.getWeather("spring", "barcelona").block()).willReturn(weather);
+		given(this.weatherService.getWeather("spain", "barcelona").block()).willReturn(weather);
 		this.mockMvc.perform(get("/api/weather/now/{country}/{city}", "spain", "barcelona"))
 				.andExpect(status().isOk())
 				.andDo(document("weather",
@@ -70,8 +70,8 @@ public class WeatherApiDocumentationTest {
 		WeatherForecast weatherForecast = this.objectMapper.readValue(
 				new ClassPathResource("/com/example/weather/integration/ows/forecast-barcelona.json").getURL(),
 				WeatherForecast.class);
-		given(this.weatherService.getWeatherForecast("spain", "barcelona")).willReturn(weatherForecast);
-		given(this.weatherService.getWeatherForecast("spain", "barcelona")).willReturn(weatherForecast);
+		given(this.weatherService.getWeatherForecast("spain", "barcelona").block()).willReturn(weatherForecast);
+		given(this.weatherService.getWeatherForecast("spain", "barcelona").block()).willReturn(weatherForecast);
 		this.mockMvc.perform(get("/api/weather/weekly/{country}/{city}", "spain", "barcelona"))
 				.andExpect(status().isOk())
 				.andDo(document("weather-forecast",

@@ -4,14 +4,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
 @EnableConfigurationProperties(WeatherAppProperties.class)
 @EnableCaching(proxyTargetClass = true)
 public class WeatherApp {
-
-	public static void main(String[] args) {
-		SpringApplication.run(WeatherApp.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(WeatherApp.class, args);
+    }
 
 }
