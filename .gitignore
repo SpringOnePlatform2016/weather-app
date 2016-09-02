@@ -29,5 +29,9 @@ target
 build
 classes
 
+### Exlude from ignorance gradle wrapper
+
+!gradle/wrapper/*
+
 src/main/resources/application-secrets.properties
 

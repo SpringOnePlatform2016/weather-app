@@ -26,9 +26,29 @@ ext {
     ] as String[]
 }
 
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
 apply plugin: 'spring-boot'
+apply plugin: 'war'
+
+bootRepackage {
+    mainClass = 'com.example.weather.WeatherApp'
+}
+
+war {
+    rootSpec.exclude("**/tomcat-*.jar")
+}
+
+springBoot {
+    mainClass = 'com.example.weather.WeatherApp'
+    executable = true
+}
+
+bootRun {
+    addResources = false
+}
 
 jar {
     baseName = 'reactive-weather-app'
@@ -69,10 +89,13 @@ dependencyManagement {
     }
 }
 
-
 eclipse {
     classpath {
         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
     }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.0'
 }
