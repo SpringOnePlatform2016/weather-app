@@ -17,6 +17,7 @@ ext {
     reactorNettyVersion = '0.6.0.BUILD-SNAPSHOT'
     freeMarkerVersion = '2.3.25-incubating'
     springVersion = '5.0.0.BUILD-SNAPSHOT'
+    commonsVersion = '2.5';
 
     javadocLinks = [
             "http://docs.oracle.com/javase/8/docs/api/",
@@ -65,13 +66,13 @@ repositories {
 }
 
 configurations {
-//    compile.exclude module: "spring-boot-starter-tomcat"
+    compile.exclude module: "spring-boot-starter-tomcat"
 }
 
 dependencies {
     compile("org.springframework.boot.experimental:spring-boot-starter-web-reactive")
     compile("org.freemarker:freemarker:${freeMarkerVersion}")
-//    compile("io.projectreactor.ipc:reactor-netty:${reactorNettyVersion}")
+    compile("io.projectreactor.ipc:reactor-netty:${reactorNettyVersion}")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-cache")
     compile("org.springframework.boot:spring-boot-devtools")
@@ -79,6 +80,8 @@ dependencies {
     compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     compile("com.github.ben-manes.caffeine:caffeine")
     compile("org.hibernate:hibernate-validator")
+    compile("commons-io:commons-io:${commonsVersion}")
+
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.springframework.restdocs:spring-restdocs-mockmvc")

@@ -1,21 +1,29 @@
 package com.example.weather.config;
 
+import com.example.weather.StaticFileView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.reactiveweb.ReactiveWebAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.reactive.accept.RequestedContentTypeResolverBuilder;
 import org.springframework.web.reactive.config.ViewResolverRegistry;
-import org.springframework.web.reactive.result.view.HttpMessageWriterView;
 import org.springframework.web.reactive.result.view.UrlBasedViewResolver;
-import org.springframework.web.reactive.result.view.freemarker.FreeMarkerConfigurer;
 
 @Configuration
 public class WebReactiveConfig extends ReactiveWebAutoConfiguration.WebReactiveConfig {
+    @Bean
+    public UrlBasedViewResolver urlBasedViewResolver(){
+        UrlBasedViewResolver urlBasedViewResolver =  new UrlBasedViewResolver();
+
+        urlBasedViewResolver.setViewNames("*");
+        urlBasedViewResolver.setViewClass(StaticFileView.class);
+
+        return urlBasedViewResolver;
+    }
+
 
     @Override
     protected void configureViewResolvers(ViewResolverRegistry registry) {
-        UrlBasedViewResolver viewResolver = new UrlBasedViewResolver();
-        viewResolver.setViewNames("*");
-        registry.viewResolver(viewResolver);
-//        registry.
+//        registry.freeMarker().viewNames("*.ftl");
+        registry.viewResolver(urlBasedViewResolver());
     }
 }
