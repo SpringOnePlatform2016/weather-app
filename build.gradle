@@ -14,8 +14,8 @@ buildscript {
 
 ext {
     reactiveWebVersion = '0.1.0.BUILD-SNAPSHOT'
+    nettyVersion = '4.1.5.Final'
     reactorNettyVersion = '0.6.0.BUILD-SNAPSHOT'
-    freeMarkerVersion = '2.3.25-incubating'
     springVersion = '5.0.0.BUILD-SNAPSHOT'
     commonsVersion = '2.5';
 
@@ -59,6 +59,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
+    mavenLocal()
     mavenCentral()
     maven { url "https://repo.spring.io/snapshot" }
     maven { url "https://repo.spring.io/release" }
@@ -71,8 +72,9 @@ configurations {
 
 dependencies {
     compile("org.springframework.boot.experimental:spring-boot-starter-web-reactive")
-    compile("org.freemarker:freemarker:${freeMarkerVersion}")
     compile("io.projectreactor.ipc:reactor-netty:${reactorNettyVersion}")
+//    compile("io.reactivex:rxnetty-http:0.5.2-rc.4")
+    compile("io.netty:netty-all:${nettyVersion}")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-cache")
     compile("org.springframework.boot:spring-boot-devtools")
