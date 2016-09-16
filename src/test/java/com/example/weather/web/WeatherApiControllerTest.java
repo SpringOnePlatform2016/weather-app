@@ -37,7 +37,7 @@ public class WeatherApiControllerTest {
 		Weather weather = new Weather();
 		weather.setName("London");
 		setWeatherEntry(weather, 286.72, 800, "01d", Instant.ofEpochSecond(1234));
-		given(this.weatherService.getWeather("uk", "london")).willReturn(weather);
+		given(this.weatherService.getWeather("uk", "london").block()).willReturn(weather);
 		this.mvc.perform(get("/api/weather/now/uk/london"))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.name", is("London")))
@@ -54,7 +54,7 @@ public class WeatherApiControllerTest {
 		forecast.setName("Brussels");
 		forecast.getEntries().add(createWeatherEntry(285.45, 600, "02d", Instant.ofEpochSecond(1234)));
 		forecast.getEntries().add(createWeatherEntry(294.45, 800, "01d", Instant.ofEpochSecond(5678)));
-		given(this.weatherService.getWeatherForecast("be", "brussels")).willReturn(forecast);
+		given(this.weatherService.getWeatherForecast("be", "brussels").block()).willReturn(forecast);
 		this.mvc.perform(get("/api/weather/weekly/be/brussels"))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.name", is("Brussels")))

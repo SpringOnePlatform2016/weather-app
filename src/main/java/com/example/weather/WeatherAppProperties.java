@@ -1,11 +1,11 @@
 package com.example.weather;
 
-import java.util.Arrays;
-import java.util.List;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import java.util.Arrays;
+import java.util.List;
 
 @ConfigurationProperties("app.weather")
 public class WeatherAppProperties {

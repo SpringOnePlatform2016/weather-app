@@ -9,9 +9,7 @@ import org.springframework.cache.annotation.EnableCaching;
 @EnableConfigurationProperties(WeatherAppProperties.class)
 @EnableCaching(proxyTargetClass = true)
 public class WeatherApp {
-
-	public static void main(String[] args) {
-		SpringApplication.run(WeatherApp.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(WeatherApp.class, args);
+    }
 }

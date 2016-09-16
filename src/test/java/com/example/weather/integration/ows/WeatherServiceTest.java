@@ -36,7 +36,7 @@ public class WeatherServiceTest {
 				.andRespond(withSuccess(
 						new ClassPathResource("weather-barcelona.json", getClass()),
 						MediaType.APPLICATION_JSON));
-		Weather forecast = this.weatherService.getWeather("es", "barcelona");
+		Weather forecast = this.weatherService.getWeather("es", "barcelona").block();
 		assertThat(forecast.getName()).isEqualTo("Barcelona");
 		assertThat(forecast.getTemperature()).isEqualTo(286.72, Offset.offset(0.1));
 		assertThat(forecast.getWeatherId()).isEqualTo(800);
