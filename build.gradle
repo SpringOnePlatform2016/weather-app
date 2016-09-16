@@ -18,6 +18,7 @@ ext {
     reactorNettyVersion = '0.6.0.BUILD-SNAPSHOT'
     springVersion = '5.0.0.BUILD-SNAPSHOT'
     commonsVersion = '2.5';
+    freeMarkerVersion = '2.3.23'
 
     javadocLinks = [
             "http://docs.oracle.com/javase/8/docs/api/",
@@ -59,7 +60,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-    mavenLocal()
+//    mavenLocal()
     mavenCentral()
     maven { url "https://repo.spring.io/snapshot" }
     maven { url "https://repo.spring.io/release" }
@@ -72,8 +73,9 @@ configurations {
 
 dependencies {
     compile("org.springframework.boot.experimental:spring-boot-starter-web-reactive")
-    compile("io.projectreactor.ipc:reactor-netty:${reactorNettyVersion}")
-//    compile("io.reactivex:rxnetty-http:0.5.2-rc.4")
+    compile("org.freemarker:freemarker:${freeMarkerVersion}")
+//    compile("io.projectreactor.ipc:reactor-netty:${reactorNettyVersion}")
+    compile("io.reactivex:rxnetty-http:0.5.2-rc.4")
     compile("io.netty:netty-all:${nettyVersion}")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-cache")

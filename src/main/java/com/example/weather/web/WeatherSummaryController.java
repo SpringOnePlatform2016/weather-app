@@ -1,6 +1,5 @@
 package com.example.weather.web;
 
-import com.example.weather.StaticFileView;
 import com.example.weather.WeatherAppProperties;
 import com.example.weather.integration.ows.Weather;
 import com.example.weather.integration.ows.WeatherService;
@@ -8,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.reactive.result.view.View;
-import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
@@ -28,15 +25,11 @@ public class WeatherSummaryController {
         this.properties = properties;
     }
 
-    @RequestMapping("static/**")
-    public Mono<View> getResources(ServerWebExchange exchange) {
-        return Mono.just(new StaticFileView(exchange.getRequest().getURI().getPath()));
-    }
-
     @RequestMapping(method = RequestMethod.GET)
     public Mono<String> conferenceWeather(Model model) {
-//        model.addAttribute("summary", getSummary());
-        return Mono.just("index.html");
+        model.addAttribute("summary", getSummary());
+
+        return Mono.just("summary");
     }
 
     private Object getSummary() {
